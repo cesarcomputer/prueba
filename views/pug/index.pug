@@ -9,11 +9,9 @@ html
   body
     h1.border.center FCC
 
-    h2#pug-success-message #{title}
-    p#pug-variable=message
-    
+    h2#pug-success-message= title
+    p#pug-variable= message
 
-    
     if showLogin
       hr
       h2.center Login Form
@@ -26,7 +24,7 @@ html
           input(type='password', name='password')
         div
           input(type='submit', value='Log In')
-          
+
     if showRegistration
       hr
       h2.center Registration Form
