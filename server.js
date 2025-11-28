@@ -8,7 +8,7 @@ const app = express();
 
 // Set Pug as the view engine
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views/pug'));
+app.set('views', './views/pug');
 
 // FCC testing
 fccTesting(app);
