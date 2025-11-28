@@ -2,28 +2,32 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const myDB = require('./connection');
 const fccTesting = require('./freeCodeCamp/fcctesting.js');
 
 const app = express();
 
 // Set Pug as the view engine
 app.set('view engine', 'pug');
-// Set the views directory to ./views/pug
-app.set('views', './views/pug');
+app.set('views', path.join(__dirname, 'views/pug'));
 
-fccTesting(app); //For FCC testing purposes
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use(express.json());
+// FCC testing
+fccTesting(app);
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.route('/').get((req, res) => {
-  // Render the Pug template for the index page
-  res.render('index', { title: 'Hello', message: 'Please log in' });
-
+// Render index.pug at root
+app.get('/', (req, res) => {
+  res.render('index', { 
+    title: 'Hello', 
+    message: 'Please log in',
+    showLogin: true,
+    showRegistration: true,
+    showSocialAuth: true
+  });
 });
 
+// Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log('Listening on port ' + PORT);
-});
+app.listen(PORT, () => console.log('Server running on port', PORT));
